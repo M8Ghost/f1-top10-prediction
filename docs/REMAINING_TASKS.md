@@ -18,6 +18,7 @@ Done:
   histogram gradient boosting and neural network MLP
 - expanding-window season backtest
 - readable top-10 prediction export
+- pre-race upcoming-race prediction export
 - figures and metrics
 - reproducible ZIP builder
 
@@ -33,7 +34,7 @@ Done:
 ## Medium Priority
 
 - [ ] Add better race-control/safety-car features from a richer source.
-- [ ] Add a small CLI option to predict a future race once entry list data is
+- [x] Add a small CLI option to predict a future race once entry list data is
   available.
 - [ ] Add model calibration charts.
 - [ ] Add permutation importance for models that do not expose feature

@@ -69,6 +69,7 @@ python scripts/train_model.py
 python scripts/evaluate_models.py
 python scripts/make_charts.py
 python scripts/predict_top10.py
+python scripts/predict_upcoming_races.py --season 2026 --count 4 --current-date 2026-05-02
 python scripts/build_submission.py
 python scripts/validate_project.py
 ```
@@ -107,6 +108,7 @@ Main outputs:
 - `outputs/rolling_backtest.csv`: progressive season-by-season validation
 - `outputs/model_selection_summary.json`: best model summary
 - `outputs/predictions/*.csv`: readable race-level prediction exports
+- `outputs/predictions/upcoming_top10_predictions.csv`: pre-race predictions for upcoming races
 - `outputs/figures/*.png`: EDA and model figures
 - `submission/IML_Assignment_GroupX.zip`: reproducible submission archive
 
@@ -117,3 +119,8 @@ race precision@10. Across the expanding-window rolling backtest, `random_forest`
 is currently the most stable model on average. The neural network is included as
 a useful baseline, but this tabular dataset is still small enough that
 tree-based models are expected to be strong.
+
+Upcoming-race predictions use the latest completed race as the driver/team
+state, Jolpica for the calendar and qualifying when available, Open-Meteo for
+near-term forecasts, circuit history for longer-range weather fallback, and
+FastF1-derived historical tyre/lap features where available.
