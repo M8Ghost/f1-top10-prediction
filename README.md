@@ -65,6 +65,7 @@ python scripts/train_model.py
 python scripts/evaluate_models.py
 python scripts/make_charts.py
 python scripts/predict_top10.py
+python scripts/build_submission.py
 ```
 
 You can train a specific algorithm:
@@ -102,6 +103,7 @@ Main outputs:
 - `outputs/model_selection_summary.json`: best model summary
 - `outputs/predictions/*.csv`: readable race-level prediction exports
 - `outputs/figures/*.png`: EDA and model figures
+- `submission/IML_Assignment_GroupX.zip`: reproducible submission archive
 
 ## Current V0 results
 

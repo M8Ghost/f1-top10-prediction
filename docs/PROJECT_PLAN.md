@@ -155,6 +155,7 @@ Tasks:
 - regenerate figures
 - summarize dataset, features, models, evaluation and limitations
 - rebuild `submission/IML_Assignment_GroupX.zip`
+- status: Markdown report and ZIP builder implemented
 
 Validation:
 

@@ -1,0 +1,125 @@
+# F1 Top 10 Prediction Report
+
+## Objective
+
+The objective of this project is to predict whether a Formula 1 driver will
+finish a race in the top 10. The task is framed as a binary classification
+problem where the target variable is `top10_finish`.
+
+## Data
+
+The project uses two public data sources:
+
+- Jolpica F1 API, an Ergast-compatible API, for historical race results,
+  qualifying results, drivers, constructors, circuits, standings and pit stops.
+- FastF1 for optional race-session enrichment, including weather and lap-based
+  historical form features for supported recent seasons.
+
+The current model-ready dataset contains:
+
+- 6521 driver-race rows
+- seasons from 2011 to 2026
+- 166 columns after optional FastF1 enrichment
+- no missing values after preprocessing
+
+## Feature Engineering
+
+The model uses only pre-race or historical features where possible. Important
+feature families include:
+
+- qualifying position and qualifying gaps
+- driver and constructor standings before the race
+- recent driver form over the previous 5 races
+- reliability over previous races
+- historical pit-stop performance
+- circuit characteristics
+- optional FastF1 rolling lap and strategy features
+
+Post-race leakage columns such as final position, points, laps completed, race
+status and fastest lap information are kept for analysis but excluded during
+training.
+
+## Models
+
+The project compares several machine learning algorithms:
+
+- logistic regression
+- random forest
+- extra trees
+- histogram gradient boosting
+- neural network MLP
+
+The neural network is included as a baseline, but the dataset is still tabular
+and relatively small. In this context, tree-based methods remain strong and
+more stable.
+
+## Validation Strategy
+
+The project uses temporal validation instead of a random split. This better
+matches the real use case because the model should learn from past seasons and
+predict future races.
+
+Two validation views are used:
+
+- a holdout season test
+- an expanding-window season-by-season backtest
+
+The main race-level metric is `race_precision_at_10`, which checks how many of
+the predicted top 10 drivers actually finished in the top 10 for each race.
+
+## Current Results
+
+Current holdout season: 2025.
+
+The current best holdout model by race precision@10 is histogram gradient
+boosting:
+
+- accuracy: 0.770
+- precision: 0.778
+- recall: 0.758
+- F1: 0.768
+- ROC-AUC: 0.836
+- race precision@10: 0.775
+
+Across the rolling backtest, random forest remains the most stable model:
+
+- average accuracy: 0.782
+- average F1: 0.781
+- average ROC-AUC: 0.847
+- average race precision@10: 0.775
+
+## How to Run
+
+```powershell
+python scripts/run_pipeline.py
+```
+
+To run with optional FastF1 enrichment:
+
+```powershell
+python scripts/run_pipeline.py --with-fastf1
+```
+
+To compare all algorithms:
+
+```powershell
+python scripts/evaluate_models.py
+```
+
+To export readable race predictions:
+
+```powershell
+python scripts/predict_top10.py
+```
+
+## Limitations
+
+Some important racing factors are still approximate:
+
+- race-control events and safety cars are not fully modeled
+- full telemetry is not used directly
+- FastF1 enrichment currently covers recent seasons only
+- actual weather is used as a proxy for race weather information
+
+The next major improvement would be to expand FastF1 coverage and build
+sequence-based features from lap-by-lap race evolution.
