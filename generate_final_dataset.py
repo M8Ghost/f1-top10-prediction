@@ -247,6 +247,7 @@ telemetry_data = telemetry_data[[col for col in telemetry_keep if col in telemet
 # Rename columns to avoid confusion
 driver_info = driver_info.rename(columns={
     "nationality": "driver_info_nationality",
+    "date_of_birth": "driver_date_of_birth",
     "first_season_in_dataset": "driver_first_season_in_dataset",
     "last_season_in_dataset": "driver_last_season_in_dataset",
     "number_of_seasons_in_dataset": "driver_number_of_seasons_in_dataset"
@@ -364,7 +365,10 @@ for col in final_df.columns:
         "position_text",
         "fastest_lap_time"
     ]:
-        final_df[col] = pd.to_numeric(final_df[col], errors="ignore")
+        try:
+            final_df[col] = pd.to_numeric(final_df[col])
+        except (TypeError, ValueError):
+            pass
 
 
 # =========================
