@@ -20,7 +20,7 @@ The project uses three public data sources:
 The current model-ready dataset contains:
 
 - 6521 driver-race rows
-- seasons from 2011 to 2026
+- seasons from 2010 to 2026
 - 198 columns after optional FastF1 race, weather, lap and race-control
   enrichment
 - no missing values after preprocessing
@@ -65,12 +65,12 @@ more stable.
 
 A separate neural-network tuning step compares several MLP configurations
 without replacing the main champion model. The best dedicated MLP configuration
-uses three hidden layers:
+uses two hidden layers:
 
-- hidden layers: 128, 64 and 32 neurons
+- hidden layers: 128 and 64 neurons
 - activation: ReLU
-- alpha: 0.004
-- learning rate: 0.0006
+- alpha: 0.002
+- learning rate: 0.0005
 - race precision@10: 0.771
 
 This improves the neural-network branch compared with the default MLP baseline,
@@ -83,13 +83,12 @@ The project now includes a second modeling task: predicting the likely finishing
 order. This is trained as a regression/ranking problem on `final_position` and
 is used to add `predicted_finish_rank` to upcoming-race exports.
 
-The best holdout finish-position model is a histogram gradient boosting
-regressor:
+The best holdout finish-position model is a neural-network MLP regressor:
 
-- race precision@10: 0.775
-- raw position MAE: 3.25 positions
-- actual-top-10 rank MAE: 2.60 positions
-- mean race Spearman correlation: 0.648
+- race precision@10: 0.779
+- raw position MAE: 3.20 positions
+- actual-top-10 rank MAE: 2.66 positions
+- mean race Spearman correlation: 0.660
 
 This model complements the binary top-10 classifier. The classifier estimates
 top-10 probability, while the position model gives an expected ordering among
@@ -116,19 +115,19 @@ Current holdout season: 2025.
 The current best holdout model by race precision@10 is histogram gradient
 boosting:
 
-- accuracy: 0.770
-- precision: 0.763
+- accuracy: 0.785
+- precision: 0.789
 - recall: 0.779
-- F1: 0.771
-- ROC-AUC: 0.833
+- F1: 0.784
+- ROC-AUC: 0.831
 - race precision@10: 0.779
 
 Across the rolling backtest, random forest remains the most stable model:
 
-- average accuracy: 0.782
-- average F1: 0.780
-- average ROC-AUC: 0.851
-- average race precision@10: 0.773
+- average accuracy: 0.777
+- average F1: 0.777
+- average ROC-AUC: 0.849
+- average race precision@10: 0.767
 
 The dedicated tuned top-10 neural network reaches a 2025 holdout race
 precision@10 of 0.771. It remains useful as a secondary model and for hidden
@@ -143,7 +142,8 @@ The latest data audit on 2026-05-05 found:
 - 4 qualifying rounds available in Jolpica and already present locally
 - Miami 2026 race results and pit stops were imported incrementally without
   refetching older races
-- Open-Meteo historical weather is available for all 314 local race-result
+- 2010 was imported incrementally, adding 19 races and 456 supervised rows
+- Open-Meteo historical weather is available for all 333 local race-result
   events
 - FastF1 currently has 177 race rows, with 100 fully available race-session
   weather/lap rows and 77 unavailable rows due to timing API limits
@@ -151,9 +151,9 @@ The latest data audit on 2026-05-05 found:
   final 10 unavailable rows are caused by API rate limits
 
 The final dataset was regenerated and all models were retrained after adding
-Miami results, historical weather and race-control history. Upcoming-race
+2010, Miami results, historical weather and race-control history. Upcoming-race
 predictions now start from Canada 2026 and include a finish-position ranking
-model. A 3D Plotly visualization was also added for the neural-network hidden
+model. A 3D Plotly visualization is included for the neural-network hidden
 representation and KMeans clusters.
 
 ## How to Run

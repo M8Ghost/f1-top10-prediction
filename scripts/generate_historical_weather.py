@@ -19,7 +19,7 @@ OUTPUT_PATH = RAW_PATH / "weather_data.csv"
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Fetch historical race-day weather from Open-Meteo Archive.")
-    parser.add_argument("--start-year", type=int, default=2011)
+    parser.add_argument("--start-year", type=int, default=2010)
     parser.add_argument("--end-year", type=int, default=date.today().year)
     parser.add_argument("--sleep", type=float, default=0.15)
     parser.add_argument("--race-results", type=Path, default=RACE_RESULTS_PATH)

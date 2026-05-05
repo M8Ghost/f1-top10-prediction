@@ -9,15 +9,15 @@ Done:
 
 - project structure under `scripts/`, `data/`, `outputs/`, `report/`,
   `notebooks/` and `submission/`
-- Jolpica data from 2011 to 2026
+- Jolpica data from 2010 to 2026
 - real Jolpica pit-stop events
-- Open-Meteo historical race-day weather for all 314 local race-result events
+- Open-Meteo historical race-day weather for all 333 local race-result events
 - FastF1 race-control messages for 167/177 attempted races, plus historical
   pre-race circuit/season disruption features
 - optional FastF1 features extended beyond 2024-2025 where the timing API and
   rate limits allowed it
 - incremental missing-race importer that skips already-local `race_id` rows
-- final dataset with 6543 rows and 198 columns
+- final dataset with 6999 rows and 198 columns
 - no missing values in the final dataset
 - model comparison across logistic regression, random forest, extra trees,
   histogram gradient boosting and neural network MLP
@@ -40,6 +40,7 @@ Done:
 - [x] Rebuild the submission ZIP after artifact generation.
 - [x] Add data coverage audit and import currently available Miami qualifying.
 - [x] Import Miami 2026 race results and pit stops incrementally once available.
+- [x] Import the missing 2010 season without refetching 2011-2026.
 - [ ] Optionally generate `report/Report.pdf` if a PDF engine is available.
 - [x] Extend FastF1 coverage beyond 2024-2025 where API limits allow it.
 - [x] Train and compare dedicated neural network configurations.

@@ -44,8 +44,23 @@ def jolpica_get(session: requests.Session, endpoint: str) -> dict[str, Any]:
 
 
 def fetch_race_table(session: requests.Session, season: int, table: str) -> list[dict[str, Any]]:
-    payload = jolpica_get(session, f"{season}/{table}.json?limit=1000")
-    return payload.get("MRData", {}).get("RaceTable", {}).get("Races", [])
+    offset = 0
+    limit = 100
+    total = None
+    races: list[dict[str, Any]] = []
+
+    while total is None or offset < total:
+        payload = jolpica_get(session, f"{season}/{table}.json?limit={limit}&offset={offset}")
+        mr_data = payload.get("MRData", {})
+        total = as_int(mr_data.get("total"))
+        response_limit = as_int(mr_data.get("limit"), default=limit)
+        page_races = mr_data.get("RaceTable", {}).get("Races", [])
+        if not page_races:
+            break
+        races.extend(page_races)
+        offset += response_limit
+
+    return races
 
 
 def load_optional_csv(path: Path) -> pd.DataFrame:

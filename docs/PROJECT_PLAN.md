@@ -9,7 +9,7 @@ Status: runnable V1.
 
 Implemented:
 
-- Jolpica/Ergast-compatible data import from 2011 to 2026
+- Jolpica/Ergast-compatible data import from 2010 to 2026
 - race results, qualifying, drivers, constructors, circuits and standings
 - real Jolpica pit-stop events and previous-race pit-stop features
 - Open-Meteo historical race-day weather enrichment for local race results

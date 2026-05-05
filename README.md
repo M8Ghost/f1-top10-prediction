@@ -64,10 +64,10 @@ python scripts/run_pipeline.py --with-fastf1 --fastf1-start-year 2024 --fastf1-e
 Or run each step manually:
 
 ```powershell
-python scripts/generate_raw_data.py --start-year 2011 --end-year 2026
+python scripts/generate_raw_data.py --start-year 2010 --end-year 2026
 python scripts/audit_data_coverage.py --season 2026
 python scripts/import_missing_completed_races.py --season 2026
-python scripts/generate_historical_weather.py --start-year 2011 --end-year 2026 --incremental
+python scripts/generate_historical_weather.py --start-year 2010 --end-year 2026 --incremental
 python scripts/generate_fastf1_features.py --start-year 2018 --end-year 2026 --incremental
 python scripts/generate_fastf1_race_control.py --start-year 2018 --end-year 2026 --incremental
 python scripts/generate_final_dataset.py
@@ -138,15 +138,15 @@ Main outputs:
 On the 2025 holdout season, `hist_gradient_boosting` currently performs best
 among the standard model comparison set by race precision@10 (`0.779`). Across
 the expanding-window rolling backtest, `random_forest` is currently the most
-stable model on average (`0.773` race precision@10). The dedicated tuned neural
-network reaches `0.771` race precision@10 with the `mlp_128_64_32_deep`
+stable model on average (`0.767` race precision@10). The dedicated tuned neural
+network reaches `0.771` race precision@10 with the `mlp_128_64_small_lr`
 configuration, so it is kept as a secondary top-10 classifier rather than the
 safest champion.
 
 A separate finish-position model predicts race order directly. The best
-position model is currently a histogram gradient boosting regressor, with 2025
-holdout race precision@10 of `0.775`, actual-top-10 rank MAE of `2.60`
-positions and mean race Spearman correlation of `0.648`. Upcoming-race exports therefore now
+position model is currently a neural-network MLP regressor, with 2025 holdout
+race precision@10 of `0.779`, actual-top-10 rank MAE of `2.66` positions and
+mean race Spearman correlation of `0.660`. Upcoming-race exports therefore now
 include both `top10_probability` and `predicted_finish_rank`.
 
 Upcoming-race predictions use the latest completed race as the driver/team
@@ -156,7 +156,7 @@ FastF1-derived historical tyre/lap features where available.
 
 Current coverage notes:
 
-- Open-Meteo historical weather: 314/314 local race-result events.
+- Open-Meteo historical weather: 333/333 local race-result events.
 - FastF1 optional enrichment: 177 race rows, 100 with available timing/weather
   data and 77 unavailable rows because of API limits.
 - FastF1 race-control messages: 167/177 attempted race rows available; the
@@ -164,3 +164,5 @@ Current coverage notes:
   incremental script later.
 - 2026 data audit on 2026-05-05: 4 race-result rounds, 4 qualifying rounds,
   4 FastF1 weather rows and 4 final-dataset races are available locally.
+- Historical import now starts at 2010. Jolpica has no detailed pit-stop rows
+  for 2010, so those fields remain availability-aware derived features.

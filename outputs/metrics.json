@@ -1,13 +1,13 @@
 {
   "model": "hist_gradient_boosting",
-  "train_rows": 5976,
+  "train_rows": 6432,
   "test_rows": 479,
   "test_season": 2025,
-  "accuracy": 0.7682672233820459,
-  "precision": 0.763265306122449,
+  "accuracy": 0.7849686847599165,
+  "precision": 0.7890295358649789,
   "recall": 0.7791666666666667,
-  "f1": 0.7711340206185567,
-  "roc_auc": 0.8334902370990238,
+  "f1": 0.7840670859538784,
+  "roc_auc": 0.8306834030683403,
   "race_precision_at_10": 0.7791666666666667,
   "exact_top10_set_rate": 0.041666666666666664
 }

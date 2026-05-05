@@ -16,7 +16,7 @@ BASE_URL = "https://api.jolpi.ca/ergast/f1"
 RAW_PATH = Path("data/raw")
 RAW_PATH.mkdir(parents=True, exist_ok=True)
 
-DEFAULT_START_YEAR = 2011
+DEFAULT_START_YEAR = 2010
 DEFAULT_END_YEAR = date.today().year
 
 CIRCUIT_LENGTH_KM = {
