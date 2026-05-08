@@ -4,7 +4,7 @@
 
 | Field | Detail |
 |---|---|
-| Group member | Cavaignac Romain - TP1458 |
+| Group member | Cavaignac Romain - TP145282 |
 | Group member | Dubernet Mathieu - TP145868 |
 | Group member | Haegeman Victor - TP145873 |
 | Module code | CX016-2.5-3-IML |
