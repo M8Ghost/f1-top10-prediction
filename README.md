@@ -109,6 +109,7 @@ Regenerate charts and race prediction renders:
 ```powershell
 python scripts/make_charts.py
 python scripts/generate_prediction_renders.py --test-season 2025 --with-headshots
+python scripts/generate_showcase_images.py
 ```
 
 Refresh derived raw tables and upcoming weather snapshots without refetching
@@ -152,6 +153,7 @@ python scripts/validate_project.py
 | `outputs/figures/*.png` | EDA and model-comparison figures |
 | `outputs/figures/predictions/race_overviews/*.png` | One-page race prediction visuals |
 | `outputs/figures/predictions/race_cards/*.png` | Detailed virtual podium and top-10 cards |
+| `outputs/figures/showcase/` | Curated PNGs for demos: selected 2025 results and upcoming forecast cards |
 | `outputs/figures/neural_network_embedding_3d.html` | Interactive 3D neural-network view |
 | `outputs/figures/neural_network_embedding_3d.png` | Static 3D view for the report |
 | `report/Report.docx` | Generated Word report |
